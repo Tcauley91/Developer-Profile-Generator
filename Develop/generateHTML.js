@@ -1,3 +1,32 @@
+
+const fs = require("fs");
+const axios = require("axios");
+const inquirer = require("inquirer");
+const util = require("util");
+
+const writeFileAsync = util.promisify(fs.writeFile);
+
+function promptuser() {
+  return inquirer.prompt([
+        {
+            type: "input",
+            name: "username",
+            message: "What is your GitHub username?"
+          },
+          {
+            type: "list",
+            message: "What is your favorite color?",
+            name: "color",
+            choices: ["Blue", "Red", "Yellow", "Orange", "Green", "Purple", "Brown"]
+          }]);
+
+    
+
+
+
+
+
+
 const colors = {
   green: {
     wrapperBackground: "#E6E1C3",
@@ -171,4 +200,24 @@ function generateHTML(data) {
           } 
          }
       </style>`
-        }
+        }}
+        promptuser()
+        .then(function ({ username }) {
+          const queryUrl = `https://api.github.com/users/${username}`;
+          axios.get(queryUrl).then(function (res) {
+              // console.log(res.data);
+
+              const data = 
+              console.log(res.data.avatar_url);
+              console.log(res.data.name);
+              console.log(res.data.location);
+              console.log(res.data.html_url);
+              console.log(res.data.bio);
+              console.log(res.data.public_repos);
+              console.log(res.data.followers);
+              console.log(res.data.following);
+
+              return writeFileAsync(answers);
+              
+          })
+      })

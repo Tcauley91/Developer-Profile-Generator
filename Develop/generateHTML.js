@@ -4,27 +4,6 @@ const axios = require("axios");
 const inquirer = require("inquirer");
 const util = require("util");
 
-const writeFileAsync = util.promisify(fs.writeFile);
-
-function promptuser() {
-  return inquirer.prompt([
-        {
-            type: "input",
-            name: "username",
-            message: "What is your GitHub username?"
-          },
-          {
-            type: "list",
-            message: "What is your favorite color?",
-            name: "color",
-            choices: ["Blue", "Red", "Yellow", "Orange", "Green", "Purple", "Brown"]
-          }]);
-
-    
-
-
-
-
 
 
 const colors = {
@@ -199,25 +178,31 @@ function generateHTML(data) {
             zoom: .75; 
           } 
          }
-      </style>`
-        }}
-        promptuser()
-        .then(function ({ username }) {
-          const queryUrl = `https://api.github.com/users/${username}`;
-          axios.get(queryUrl).then(function (res) {
-              // console.log(res.data);
+      </style>
+      
+      </head>
+      <body>
+      <div class="container">
+          <h1>${data.name}</h1>
+          <hr>
+          <div class="BL">
+              <img src='${data.avatar_url}' alt="Photo of ${data.name}'>
+              <p>Bio: ${data.bio}</p>
+              <p>Company: ${data.company}</p>
+              <p>Repo URL: <a href='${data.html_url}'>${data.name}'s Repo</a></p>
+              <p>Public Repos: ${data.public_repos}</p>
+              <p>Followers: ${data.followers}</p>
+              <p>Following: ${data.following}</p>
+              <p>Location: ${data.location}</p>
+          </div>
+      </div>
+      </body>
+  </html>`
+  }
+        
+        
+console.log(generateHTML);
+        
 
-              const data = 
-              console.log(res.data.avatar_url);
-              console.log(res.data.name);
-              console.log(res.data.location);
-              console.log(res.data.html_url);
-              console.log(res.data.bio);
-              console.log(res.data.public_repos);
-              console.log(res.data.followers);
-              console.log(res.data.following);
 
-              return writeFileAsync(answers);
-              
-          })
-      })
+        module.exports = generateHTML;

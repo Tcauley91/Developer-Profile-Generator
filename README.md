@@ -5,4 +5,4 @@ Run npm install to aquire all of the dependencies.
 Run node index.js and follow the user prompts. 
 Uppon completion of the user prompts this application will contact the users GitHub profile via axios and generate a PDF file of the GitHub profile. 
 
-![](./assets/applicaton.gif)
+![](assets/applicaton.gif)
